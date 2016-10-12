@@ -1,0 +1,414 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="description" content="Analyze your Garmin Swim Data">
+    <title>Swimming Watch Tools - Viewer</title>
+    <meta property="og:type" content="website"> 
+    <meta property="og:url" content="http://www.swimmingwatchtools.com"> 
+    <meta property="og:title" content="Swimming Watch Tools"> 
+    <meta property="og:image" content="http://www.swimmingwatchtools.com/content/garminswim.jpg"> 
+    <meta property="og:description" content="Edit and analyse your swimming watch data Online">
+    <link rel="stylesheet" type="text/css" href="/content/main3.css">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="content/jquery.nouislider.min.css">
+  </head>
+  <body> 
+    <div class="header">
+      <div class="header-content">
+        <h1>Swimming Watch tools</h1>
+        <ul class="tabs">
+          <li><a href="index" class="">Home</a></li>
+          <li><a href="upload" class="">Upload</a></li>
+          <li><a href="editor" class="">Editor</a></li>
+          <li><a href="viewer" class="selected">Viewer</a></li>
+          <li><a href="help" class="">User's Guide</a></li>
+          <li><a href="contact" class="">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="content">
+<div class="section">
+  <h2>
+    Summary
+  </h2>
+<table>
+<caption>
+<script type="text/javascript">
+var date = new Date(Date.UTC(2016,8,26,15,44,15));
+document.write(date.toLocaleDateString() + ' ');
+document.write('From: ' + date.toLocaleTimeString()+ ' ');
+date.setTime(date.getTime() + 3229264.0190125);document.write('To: ' + date.toLocaleTimeString());
+</script> - Pool size: 20 m<br/></caption>
+<tr><td>
+<table>
+  <thead>
+    <tr>
+      <th>Style </th>
+      <th>Lengths </th>
+      <th>Distance </th>
+      <th>Time </th>
+      <th>Pace </th>
+      <th>SPM </th>
+      <th>SPL </th>
+    </thead>
+    <tbody>
+<tr class="freestyle"><td>Freestyle</td><td>85</td><td>1700</td><td>33:47.10</td><td>1:59</td><td>21.5</td><td>8.6</td></tr>
+<tr class="breaststroke"><td>BreastStroke</td><td>25</td><td>500</td><td>11:35.8</td><td>2:19</td><td>27.9</td><td>12.9</td></tr>
+<tr class="total"><td>Sub Total</td><td>110</td><td>2200</td><td>45:23.8</td><td>2:03</td><td>23.1</td><td>9.5</td></tr>
+<tr class="rest"><td>Rest</td><td></td><td></td><td>8:25.5</td><td></td><td></td><td></td></tr>
+<tr class="total"><td>Total</td><td>110</td><td>2200</td><td>53:49.3</td><td></td><td></td><td></td></tr>
+</tbody></table></td><td>
+  <div id="summaryChart">
+  </div>
+</td></tr></table>
+</div>
+<div class="section">
+  <h2>
+    Best times 
+  </h2>
+<p>Best times are only available for standard pool sizes (25m, 50m, 25y)</p></div>
+<div class="section">
+  <h2>
+   Pace Analysis 
+  </h2>
+    <p><b>How to interpret data:</b> Speed has two components: stroke rate, 
+and stroke length. Stroke rate is the number of strokes per unit of time, 
+and stroke length is the distance covered with each strokes. Swimming fast 
+is achieved by moving your arms fast, while covering the largest distance 
+with each strokes. In the graph below, each bar is a length, bar height 
+represents pace, red line is the stroke rate, and blue line is the stroke 
+count. Stroke count is used instead of Stroke length because it is more 
+intuitive and convenient. Both metrics are related. A large stroke length 
+means you'll need less strokes to get to the other end of the pool. Looking 
+at data, you should observe that fastest lengths are those with high stroke 
+rate and/or low stroke count values.</p>
+    <div id="paceChart">
+    </div>
+    <div id="paceChartSlider"></div>
+<p class="centered">Use sliders to zoom in data<br/>
+Click and drag area between sliders to scroll</p>
+</div>
+<div class="section">
+  <h2>
+    Stroke Analysis
+  </h2>
+    <p><b>How to interpret data:</b> This graph shows you stroke rate and
+stroke count distribution, and how it affects pace. Each point is a length.
+X-value is stroke rate, Y-value is stroke count, and color represents  pace
+(yellow is slow, red is fast). As said earlier, fastest lengths are those with
+high stroke rate and/or low stroke count values. Unfortunately, for most
+of us, raising stroke rate has the side effect of raising stroke count.
+The positive effect of raising stroke rate may be cancelled by the negative
+effect of higher stroke count values and results in no increase or decrease of
+pace. Best swimmers have constant stroke count, and are able to maintain this
+stroke count at high stroke rate.</p>
+  <p><select id="strokeChartSelect">
+<option value="0">Freestyle</option><option value="2">Breaststroke</option>  </select>
+  &nbspAvg stroke rate: <span id="avgSpm"></span> / Avg Stroke count: <span id="avgSpl"></span>
+  </p>
+  <div id='strokeChart'></div>
+</div>
+<div class="section">
+  <h2>
+    Lengths Details
+  </h2>
+  <table id="lengths">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th colspan=2>Distance</th>
+      <th>Time</th>
+      <th>Pace</th>
+      <th>SPM</th>
+      <th>SPL</th>
+  </tr>
+    </thead>
+    <tbody><tr class="length freestyle"><td>1</td><td>20</td><td>Freestyle</td><td>0:22.1</td><td>1:50</td><td>19.0</td><td>7</td></tr>
+<tr class="length freestyle"><td>2</td><td>20</td><td>Freestyle</td><td>0:22.6</td><td>1:53</td><td>21.2</td><td>8</td></tr>
+<tr class="length freestyle"><td>3</td><td>20</td><td>Freestyle</td><td>0:23.1</td><td>1:55</td><td>20.8</td><td>8</td></tr>
+<tr class="length freestyle"><td>4</td><td>20</td><td>Freestyle</td><td>0:23.1</td><td>1:55</td><td>18.2</td><td>7</td></tr>
+<tr class="length freestyle"><td>5</td><td>20</td><td>Freestyle</td><td>0:24.1</td><td>2:00</td><td>19.9</td><td>8</td></tr>
+<tr class="length breaststroke"><td>6</td><td>20</td><td>Breaststroke</td><td>0:24.4</td><td>2:01</td><td>29.5</td><td>12</td></tr>
+<tr class="length breaststroke"><td>7</td><td>20</td><td>Breaststroke</td><td>0:27.6</td><td>2:17</td><td>28.3</td><td>13</td></tr>
+<tr class="length breaststroke"><td>8</td><td>20</td><td>Breaststroke</td><td>0:27.8</td><td>2:18</td><td>30.3</td><td>14</td></tr>
+<tr class="length breaststroke"><td>9</td><td>20</td><td>Breaststroke</td><td>0:25.8</td><td>2:09</td><td>30.2</td><td>13</td></tr>
+<tr class="length breaststroke"><td>10</td><td>20</td><td>Breaststroke</td><td>0:28.1</td><td>2:20</td><td>27.8</td><td>13</td></tr>
+<tr class="rest"><td>Rest</td><td></td><td></td><td>0:57.9</td><td></td><td></td><td></td></tr>
+<tr class="interval"><td>1st Interval</td><td>200</td><td>Mixed</td><td>4:08.6</td><td>2:04</td><td>24.9</td><td>10.3</td></tr>
+</tbody><tbody><tr class="length freestyle"><td>11</td><td>20</td><td>Freestyle</td><td>0:20.1</td><td>1:40</td><td>26.8</td><td>9</td></tr>
+<tr class="length freestyle"><td>12</td><td>20</td><td>Freestyle</td><td>0:18.8</td><td>1:33</td><td>25.6</td><td>8</td></tr>
+<tr class="length freestyle"><td>13</td><td>20</td><td>Freestyle</td><td>0:17.6</td><td>1:28</td><td>23.8</td><td>7</td></tr>
+<tr class="length freestyle"><td>14</td><td>20</td><td>Freestyle</td><td>0:21.0</td><td>1:45</td><td>28.6</td><td>10</td></tr>
+<tr class="length freestyle"><td>15</td><td>20</td><td>Freestyle</td><td>0:17.9</td><td>1:29</td><td>23.4</td><td>7</td></tr>
+<tr class="rest"><td>Rest</td><td></td><td></td><td>1:16.9</td><td></td><td></td><td></td></tr>
+<tr class="interval"><td>2nd Interval</td><td>100</td><td>Freestyle</td><td>1:35.4</td><td>1:35</td><td>25.8</td><td>8.2</td></tr>
+</tbody><tbody><tr class="length freestyle"><td>16</td><td>20</td><td>Freestyle</td><td>0:23.6</td><td>1:58</td><td>20.3</td><td>8</td></tr>
+<tr class="length freestyle"><td>17</td><td>20</td><td>Freestyle</td><td>0:26.2</td><td>2:11</td><td>22.9</td><td>10</td></tr>
+<tr class="length freestyle"><td>18</td><td>20</td><td>Freestyle</td><td>0:22.1</td><td>1:50</td><td>19.0</td><td>7</td></tr>
+<tr class="length freestyle"><td>19</td><td>20</td><td>Freestyle</td><td>0:25.2</td><td>2:05</td><td>21.4</td><td>9</td></tr>
+<tr class="length freestyle"><td>20</td><td>20</td><td>Freestyle</td><td>0:27.1</td><td>2:15</td><td>22.1</td><td>10</td></tr>
+<tr class="length freestyle"><td>21</td><td>20</td><td>Freestyle</td><td>0:21.8</td><td>1:49</td><td>19.3</td><td>7</td></tr>
+<tr class="length freestyle"><td>22</td><td>20</td><td>Freestyle</td><td>0:29.6</td><td>2:27</td><td>20.3</td><td>10</td></tr>
+<tr class="length freestyle"><td>23</td><td>20</td><td>Freestyle</td><td>0:20.4</td><td>1:41</td><td>20.6</td><td>7</td></tr>
+<tr class="length freestyle"><td>24</td><td>20</td><td>Freestyle</td><td>0:27.0</td><td>2:15</td><td>22.2</td><td>10</td></tr>
+<tr class="length freestyle"><td>25</td><td>20</td><td>Freestyle</td><td>0:22.4</td><td>1:51</td><td>18.8</td><td>7</td></tr>
+<tr class="length freestyle"><td>26</td><td>20</td><td>Freestyle</td><td>0:27.4</td><td>2:17</td><td>21.9</td><td>10</td></tr>
+<tr class="length freestyle"><td>27</td><td>20</td><td>Freestyle</td><td>0:22.1</td><td>1:50</td><td>19.0</td><td>7</td></tr>
+<tr class="length freestyle"><td>28</td><td>20</td><td>Freestyle</td><td>0:29.9</td><td>2:29</td><td>22.1</td><td>11</td></tr>
+<tr class="length freestyle"><td>29</td><td>20</td><td>Freestyle</td><td>0:20.9</td><td>1:44</td><td>20.1</td><td>7</td></tr>
+<tr class="length freestyle"><td>30</td><td>20</td><td>Freestyle</td><td>0:23.8</td><td>1:59</td><td>17.6</td><td>7</td></tr>
+<tr class="length freestyle"><td>31</td><td>20</td><td>Freestyle</td><td>0:28.6</td><td>2:22</td><td>21.0</td><td>10</td></tr>
+<tr class="length freestyle"><td>32</td><td>20</td><td>Freestyle</td><td>0:22.2</td><td>1:50</td><td>18.9</td><td>7</td></tr>
+<tr class="length freestyle"><td>33</td><td>20</td><td>Freestyle</td><td>0:24.4</td><td>2:01</td><td>19.7</td><td>8</td></tr>
+<tr class="length freestyle"><td>34</td><td>20</td><td>Freestyle</td><td>0:27.2</td><td>2:16</td><td>22.0</td><td>10</td></tr>
+<tr class="length freestyle"><td>35</td><td>20</td><td>Freestyle</td><td>0:22.4</td><td>1:51</td><td>18.8</td><td>7</td></tr>
+<tr class="length freestyle"><td>36</td><td>20</td><td>Freestyle</td><td>0:23.8</td><td>1:58</td><td>20.2</td><td>8</td></tr>
+<tr class="length freestyle"><td>37</td><td>20</td><td>Freestyle</td><td>0:24.1</td><td>2:00</td><td>19.9</td><td>8</td></tr>
+<tr class="length freestyle"><td>38</td><td>20</td><td>Freestyle</td><td>0:22.6</td><td>1:52</td><td>21.3</td><td>8</td></tr>
+<tr class="length freestyle"><td>39</td><td>20</td><td>Freestyle</td><td>0:35.6</td><td>2:58</td><td>25.3</td><td>15</td></tr>
+<tr class="length freestyle"><td>40</td><td>20</td><td>Freestyle</td><td>0:16.3</td><td>1:21</td><td>18.4</td><td>5</td></tr>
+<tr class="length freestyle"><td>41</td><td>20</td><td>Freestyle</td><td>0:21.8</td><td>1:48</td><td>19.3</td><td>7</td></tr>
+<tr class="length freestyle"><td>42</td><td>20</td><td>Freestyle</td><td>0:23.1</td><td>1:55</td><td>20.8</td><td>8</td></tr>
+<tr class="length freestyle"><td>43</td><td>20</td><td>Freestyle</td><td>0:24.6</td><td>2:02</td><td>19.5</td><td>8</td></tr>
+<tr class="length freestyle"><td>44</td><td>20</td><td>Freestyle</td><td>0:26.9</td><td>2:14</td><td>22.3</td><td>10</td></tr>
+<tr class="length freestyle"><td>45</td><td>20</td><td>Freestyle</td><td>0:22.1</td><td>1:50</td><td>19.0</td><td>7</td></tr>
+<tr class="length freestyle"><td>46</td><td>20</td><td>Freestyle</td><td>0:26.9</td><td>2:14</td><td>22.3</td><td>10</td></tr>
+<tr class="length freestyle"><td>47</td><td>20</td><td>Freestyle</td><td>0:21.8</td><td>1:48</td><td>19.3</td><td>7</td></tr>
+<tr class="length freestyle"><td>48</td><td>20</td><td>Freestyle</td><td>0:25.2</td><td>2:05</td><td>21.4</td><td>9</td></tr>
+<tr class="length freestyle"><td>49</td><td>20</td><td>Freestyle</td><td>0:26.8</td><td>2:14</td><td>20.1</td><td>9</td></tr>
+<tr class="length freestyle"><td>50</td><td>20</td><td>Freestyle</td><td>0:22.3</td><td>1:51</td><td>18.8</td><td>7</td></tr>
+<tr class="length freestyle"><td>51</td><td>20</td><td>Freestyle</td><td>0:27.7</td><td>2:18</td><td>21.7</td><td>10</td></tr>
+<tr class="length freestyle"><td>52</td><td>20</td><td>Freestyle</td><td>0:21.2</td><td>1:45</td><td>19.8</td><td>7</td></tr>
+<tr class="length freestyle"><td>53</td><td>20</td><td>Freestyle</td><td>0:24.6</td><td>2:02</td><td>19.5</td><td>8</td></tr>
+<tr class="length freestyle"><td>54</td><td>20</td><td>Freestyle</td><td>0:23.5</td><td>1:57</td><td>20.4</td><td>8</td></tr>
+<tr class="length freestyle"><td>55</td><td>20</td><td>Freestyle</td><td>0:25.4</td><td>2:07</td><td>21.2</td><td>9</td></tr>
+<tr class="length freestyle"><td>56</td><td>20</td><td>Freestyle</td><td>0:24.8</td><td>2:03</td><td>24.2</td><td>10</td></tr>
+<tr class="length freestyle"><td>57</td><td>20</td><td>Freestyle</td><td>0:22.8</td><td>1:54</td><td>18.4</td><td>7</td></tr>
+<tr class="length freestyle"><td>58</td><td>20</td><td>Freestyle</td><td>0:49.8</td><td>4:08</td><td>22.9</td><td>19</td></tr>
+<tr class="length freestyle"><td>59</td><td>20</td><td>Freestyle</td><td>0:26.8</td><td>2:14</td><td>22.4</td><td>10</td></tr>
+<tr class="length freestyle"><td>60</td><td>20</td><td>Freestyle</td><td>0:22.1</td><td>1:50</td><td>19.0</td><td>7</td></tr>
+<tr class="length freestyle"><td>61</td><td>20</td><td>Freestyle</td><td>0:27.3</td><td>2:16</td><td>22.0</td><td>10</td></tr>
+<tr class="length freestyle"><td>62</td><td>20</td><td>Freestyle</td><td>0:24.8</td><td>2:03</td><td>21.8</td><td>9</td></tr>
+<tr class="length freestyle"><td>63</td><td>20</td><td>Freestyle</td><td>0:22.0</td><td>1:50</td><td>19.1</td><td>7</td></tr>
+<tr class="length freestyle"><td>64</td><td>20</td><td>Freestyle</td><td>0:26.6</td><td>2:12</td><td>22.6</td><td>10</td></tr>
+<tr class="length freestyle"><td>65</td><td>20</td><td>Freestyle</td><td>0:22.9</td><td>1:54</td><td>18.4</td><td>7</td></tr>
+<tr class="rest"><td>Rest</td><td></td><td></td><td>2:21.2</td><td></td><td></td><td></td></tr>
+<tr class="interval"><td>3rd Interval</td><td>1000</td><td>Freestyle</td><td>20:49.10</td><td>2:04</td><td>20.8</td><td>8.7</td></tr>
+</tbody><tbody><tr class="length freestyle"><td>66</td><td>20</td><td>Freestyle</td><td>0:20.8</td><td>1:43</td><td>23.1</td><td>8</td></tr>
+<tr class="length freestyle"><td>67</td><td>20</td><td>Freestyle</td><td>0:19.6</td><td>1:38</td><td>24.5</td><td>8</td></tr>
+<tr class="length freestyle"><td>68</td><td>20</td><td>Freestyle</td><td>0:23.9</td><td>1:59</td><td>22.6</td><td>9</td></tr>
+<tr class="length freestyle"><td>69</td><td>20</td><td>Freestyle</td><td>0:19.1</td><td>1:35</td><td>22.0</td><td>7</td></tr>
+<tr class="length freestyle"><td>70</td><td>20</td><td>Freestyle</td><td>0:22.1</td><td>1:50</td><td>24.4</td><td>9</td></tr>
+<tr class="length freestyle"><td>71</td><td>20</td><td>Freestyle</td><td>0:23.4</td><td>1:57</td><td>25.6</td><td>10</td></tr>
+<tr class="length freestyle"><td>72</td><td>20</td><td>Freestyle</td><td>0:22.0</td><td>1:50</td><td>24.5</td><td>9</td></tr>
+<tr class="length freestyle"><td>73</td><td>20</td><td>Freestyle</td><td>0:22.7</td><td>1:53</td><td>23.8</td><td>9</td></tr>
+<tr class="length freestyle"><td>74</td><td>20</td><td>Freestyle</td><td>0:18.4</td><td>1:32</td><td>22.8</td><td>7</td></tr>
+<tr class="length freestyle"><td>75</td><td>20</td><td>Freestyle</td><td>0:22.2</td><td>1:51</td><td>24.3</td><td>9</td></tr>
+<tr class="rest"><td>Rest</td><td></td><td></td><td>1:31.2</td><td></td><td></td><td></td></tr>
+<tr class="interval"><td>4th Interval</td><td>200</td><td>Freestyle</td><td>3:34.3</td><td>1:47</td><td>23.8</td><td>8.5</td></tr>
+</tbody><tbody><tr class="length breaststroke"><td>76</td><td>20</td><td>Breaststroke</td><td>0:25.2</td><td>2:06</td><td>26.1</td><td>11</td></tr>
+<tr class="length breaststroke"><td>77</td><td>20</td><td>Breaststroke</td><td>0:28.0</td><td>2:20</td><td>27.9</td><td>13</td></tr>
+<tr class="length breaststroke"><td>78</td><td>20</td><td>Breaststroke</td><td>0:28.6</td><td>2:22</td><td>27.3</td><td>13</td></tr>
+<tr class="length breaststroke"><td>79</td><td>20</td><td>Breaststroke</td><td>0:28.2</td><td>2:20</td><td>25.5</td><td>12</td></tr>
+<tr class="length breaststroke"><td>80</td><td>20</td><td>Breaststroke</td><td>0:28.2</td><td>2:21</td><td>27.6</td><td>13</td></tr>
+<tr class="length breaststroke"><td>81</td><td>20</td><td>Breaststroke</td><td>0:28.0</td><td>2:20</td><td>27.9</td><td>13</td></tr>
+<tr class="length breaststroke"><td>82</td><td>20</td><td>Breaststroke</td><td>0:27.5</td><td>2:17</td><td>28.4</td><td>13</td></tr>
+<tr class="length breaststroke"><td>83</td><td>20</td><td>Breaststroke</td><td>0:30.2</td><td>2:31</td><td>27.8</td><td>14</td></tr>
+<tr class="length breaststroke"><td>84</td><td>20</td><td>Breaststroke</td><td>0:26.2</td><td>2:10</td><td>29.8</td><td>13</td></tr>
+<tr class="length breaststroke"><td>85</td><td>20</td><td>Breaststroke</td><td>0:25.7</td><td>2:08</td><td>30.4</td><td>13</td></tr>
+<tr class="length breaststroke"><td>86</td><td>20</td><td>Breaststroke</td><td>0:29.6</td><td>2:28</td><td>26.3</td><td>13</td></tr>
+<tr class="length breaststroke"><td>87</td><td>20</td><td>Breaststroke</td><td>0:25.8</td><td>2:09</td><td>30.2</td><td>13</td></tr>
+<tr class="length breaststroke"><td>88</td><td>20</td><td>Breaststroke</td><td>0:26.3</td><td>2:11</td><td>29.6</td><td>13</td></tr>
+<tr class="length breaststroke"><td>89</td><td>20</td><td>Breaststroke</td><td>0:28.8</td><td>2:24</td><td>31.2</td><td>15</td></tr>
+<tr class="length breaststroke"><td>90</td><td>20</td><td>Breaststroke</td><td>0:24.5</td><td>2:02</td><td>29.4</td><td>12</td></tr>
+<tr class="rest"><td>Rest</td><td></td><td></td><td>1:29.5</td><td></td><td></td><td></td></tr>
+<tr class="interval"><td>5th Interval</td><td>300</td><td>Breaststroke</td><td>6:50.9</td><td>2:16</td><td>28.3</td><td>12.9</td></tr>
+</tbody><tbody><tr class="length freestyle"><td>91</td><td>20</td><td>Freestyle</td><td>0:20.4</td><td>1:41</td><td>20.6</td><td>7</td></tr>
+<tr class="length freestyle"><td>92</td><td>20</td><td>Freestyle</td><td>0:21.0</td><td>1:45</td><td>22.9</td><td>8</td></tr>
+<tr class="length freestyle"><td>93</td><td>20</td><td>Freestyle</td><td>0:24.4</td><td>2:01</td><td>24.6</td><td>10</td></tr>
+<tr class="length freestyle"><td>94</td><td>20</td><td>Freestyle</td><td>0:19.6</td><td>1:38</td><td>21.4</td><td>7</td></tr>
+<tr class="length freestyle"><td>95</td><td>20</td><td>Freestyle</td><td>0:24.4</td><td>2:02</td><td>24.6</td><td>10</td></tr>
+<tr class="length freestyle"><td>96</td><td>20</td><td>Freestyle</td><td>0:23.1</td><td>1:55</td><td>23.4</td><td>9</td></tr>
+<tr class="length freestyle"><td>97</td><td>20</td><td>Freestyle</td><td>0:20.1</td><td>1:40</td><td>20.9</td><td>7</td></tr>
+<tr class="length freestyle"><td>98</td><td>20</td><td>Freestyle</td><td>0:23.9</td><td>1:59</td><td>22.6</td><td>9</td></tr>
+<tr class="length freestyle"><td>99</td><td>20</td><td>Freestyle</td><td>0:23.6</td><td>1:57</td><td>22.9</td><td>9</td></tr>
+<tr class="length freestyle"><td>100</td><td>20</td><td>Freestyle</td><td>0:23.2</td><td>1:55</td><td>23.3</td><td>9</td></tr>
+<tr class="rest"><td>Rest</td><td></td><td></td><td>0:48.8</td><td></td><td></td><td></td></tr>
+<tr class="interval"><td>6th Interval</td><td>200</td><td>Freestyle</td><td>3:43.6</td><td>1:51</td><td>22.8</td><td>8.5</td></tr>
+</tbody><tbody><tr class="length freestyle"><td>101</td><td>20</td><td>Freestyle</td><td>0:28.3</td><td>2:21</td><td>21.2</td><td>10</td></tr>
+<tr class="length freestyle"><td>102</td><td>20</td><td>Freestyle</td><td>0:25.4</td><td>2:07</td><td>18.9</td><td>8</td></tr>
+<tr class="length freestyle"><td>103</td><td>20</td><td>Freestyle</td><td>0:26.1</td><td>2:10</td><td>23.0</td><td>10</td></tr>
+<tr class="length freestyle"><td>104</td><td>20</td><td>Freestyle</td><td>0:23.1</td><td>1:55</td><td>20.8</td><td>8</td></tr>
+<tr class="length freestyle"><td>105</td><td>20</td><td>Freestyle</td><td>0:26.7</td><td>2:13</td><td>20.2</td><td>9</td></tr>
+<tr class="length breaststroke"><td>106</td><td>20</td><td>Breaststroke</td><td>0:29.2</td><td>2:26</td><td>28.7</td><td>14</td></tr>
+<tr class="length breaststroke"><td>107</td><td>20</td><td>Breaststroke</td><td>0:28.4</td><td>2:21</td><td>27.5</td><td>13</td></tr>
+<tr class="length breaststroke"><td>108</td><td>20</td><td>Breaststroke</td><td>0:23.6</td><td>1:57</td><td>28.0</td><td>11</td></tr>
+<tr class="length breaststroke"><td>109</td><td>20</td><td>Breaststroke</td><td>0:32.6</td><td>2:42</td><td>22.1</td><td>12</td></tr>
+<tr class="length breaststroke"><td>110</td><td>20</td><td>Breaststroke</td><td>0:37.6</td><td>3:07</td><td>22.4</td><td>14</td></tr>
+<tr class="interval"><td>7th Interval</td><td>200</td><td>Mixed</td><td>4:40.9</td><td>2:20</td><td>23.3</td><td>10.9</td></tr>
+</tbody><tbody></tbody></table></div>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<script type="text/javascript" src="scripts/jquery.nouislider.min.js"></script>
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript">
+var lengthsData_ = 
+{cols:[
+{id:'length',label:'Length',type:'string'},
+{id:'interval',type:'string',role:'annotation'},
+{id:'time', label: 'Time', type:'number'},
+{id:'pace',label:'Pace',type:'number'},
+{id:'spm', label: 'SPM', type:'number'},
+{id:'spl', label: 'SPL', type:'number'},
+{id:'stroke',type:'number'},
+],
+rows:[
+{c:[{v:1},{v:1},{v:22.1},{v:110.3},{v:19.0},{v:7},{v:0}]},
+{c:[{v:2},{v:null},{v:22.6},{v:113.1},{v:21.2},{v:8},{v:0}]},
+{c:[{v:3},{v:null},{v:23.1},{v:115.3},{v:20.8},{v:8},{v:0}]},
+{c:[{v:4},{v:null},{v:23.1},{v:115.6},{v:18.2},{v:7},{v:0}]},
+{c:[{v:5},{v:null},{v:24.1},{v:120.6},{v:19.9},{v:8},{v:0}]},
+{c:[{v:6},{v:null},{v:24.4},{v:121.9},{v:29.5},{v:12},{v:2}]},
+{c:[{v:7},{v:null},{v:27.6},{v:137.8},{v:28.3},{v:13},{v:2}]},
+{c:[{v:8},{v:null},{v:27.8},{v:138.8},{v:30.3},{v:14},{v:2}]},
+{c:[{v:9},{v:null},{v:25.8},{v:129.1},{v:30.2},{v:13},{v:2}]},
+{c:[{v:10},{v:null},{v:28.1},{v:140.3},{v:27.8},{v:13},{v:2}]},
+{c:[{v:'R'},{v:null},{v:57.9},{v:null},{v:null},{v:null},{v:null},{v:null}]},
+{c:[{v:11},{v:2},{v:20.1},{v:100.6},{v:26.8},{v:9},{v:0}]},
+{c:[{v:12},{v:null},{v:18.8},{v:93.8},{v:25.6},{v:8},{v:0}]},
+{c:[{v:13},{v:null},{v:17.6},{v:88.1},{v:23.8},{v:7},{v:0}]},
+{c:[{v:14},{v:null},{v:21.0},{v:105.0},{v:28.6},{v:10},{v:0}]},
+{c:[{v:15},{v:null},{v:17.9},{v:89.7},{v:23.4},{v:7},{v:0}]},
+{c:[{v:'R'},{v:null},{v:76.9},{v:null},{v:null},{v:null},{v:null},{v:null}]},
+{c:[{v:16},{v:3},{v:23.6},{v:118.1},{v:20.3},{v:8},{v:0}]},
+{c:[{v:17},{v:null},{v:26.2},{v:131.2},{v:22.9},{v:10},{v:0}]},
+{c:[{v:18},{v:null},{v:22.1},{v:110.3},{v:19.0},{v:7},{v:0}]},
+{c:[{v:19},{v:null},{v:25.2},{v:125.9},{v:21.4},{v:9},{v:0}]},
+{c:[{v:20},{v:null},{v:27.1},{v:135.6},{v:22.1},{v:10},{v:0}]},
+{c:[{v:21},{v:null},{v:21.8},{v:109.1},{v:19.3},{v:7},{v:0}]},
+{c:[{v:22},{v:null},{v:29.6},{v:147.8},{v:20.3},{v:10},{v:0}]},
+{c:[{v:23},{v:null},{v:20.4},{v:101.9},{v:20.6},{v:7},{v:0}]},
+{c:[{v:24},{v:null},{v:27.0},{v:135.0},{v:22.2},{v:10},{v:0}]},
+{c:[{v:25},{v:null},{v:22.4},{v:111.9},{v:18.8},{v:7},{v:0}]},
+{c:[{v:26},{v:null},{v:27.4},{v:137.2},{v:21.9},{v:10},{v:0}]},
+{c:[{v:27},{v:null},{v:22.1},{v:110.6},{v:19.0},{v:7},{v:0}]},
+{c:[{v:28},{v:null},{v:29.9},{v:149.4},{v:22.1},{v:11},{v:0}]},
+{c:[{v:29},{v:null},{v:20.9},{v:104.4},{v:20.1},{v:7},{v:0}]},
+{c:[{v:30},{v:null},{v:23.8},{v:119.1},{v:17.6},{v:7},{v:0}]},
+{c:[{v:31},{v:null},{v:28.6},{v:142.8},{v:21.0},{v:10},{v:0}]},
+{c:[{v:32},{v:null},{v:22.2},{v:110.9},{v:18.9},{v:7},{v:0}]},
+{c:[{v:33},{v:null},{v:24.4},{v:121.9},{v:19.7},{v:8},{v:0}]},
+{c:[{v:34},{v:null},{v:27.2},{v:136.2},{v:22.0},{v:10},{v:0}]},
+{c:[{v:35},{v:null},{v:22.4},{v:111.9},{v:18.8},{v:7},{v:0}]},
+{c:[{v:36},{v:null},{v:23.8},{v:118.8},{v:20.2},{v:8},{v:0}]},
+{c:[{v:37},{v:null},{v:24.1},{v:120.3},{v:19.9},{v:8},{v:0}]},
+{c:[{v:38},{v:null},{v:22.6},{v:112.8},{v:21.3},{v:8},{v:0}]},
+{c:[{v:39},{v:null},{v:35.6},{v:178.1},{v:25.3},{v:15},{v:0}]},
+{c:[{v:40},{v:null},{v:16.3},{v:81.6},{v:18.4},{v:5},{v:0}]},
+{c:[{v:41},{v:null},{v:21.8},{v:108.8},{v:19.3},{v:7},{v:0}]},
+{c:[{v:42},{v:null},{v:23.1},{v:115.3},{v:20.8},{v:8},{v:0}]},
+{c:[{v:43},{v:null},{v:24.6},{v:122.8},{v:19.5},{v:8},{v:0}]},
+{c:[{v:44},{v:null},{v:26.9},{v:134.7},{v:22.3},{v:10},{v:0}]},
+{c:[{v:45},{v:null},{v:22.1},{v:110.6},{v:19.0},{v:7},{v:0}]},
+{c:[{v:46},{v:null},{v:26.9},{v:134.4},{v:22.3},{v:10},{v:0}]},
+{c:[{v:47},{v:null},{v:21.8},{v:108.8},{v:19.3},{v:7},{v:0}]},
+{c:[{v:48},{v:null},{v:25.2},{v:125.9},{v:21.4},{v:9},{v:0}]},
+{c:[{v:49},{v:null},{v:26.8},{v:134.1},{v:20.1},{v:9},{v:0}]},
+{c:[{v:50},{v:null},{v:22.3},{v:111.6},{v:18.8},{v:7},{v:0}]},
+{c:[{v:51},{v:null},{v:27.7},{v:138.4},{v:21.7},{v:10},{v:0}]},
+{c:[{v:52},{v:null},{v:21.2},{v:105.9},{v:19.8},{v:7},{v:0}]},
+{c:[{v:53},{v:null},{v:24.6},{v:122.8},{v:19.5},{v:8},{v:0}]},
+{c:[{v:54},{v:null},{v:23.5},{v:117.5},{v:20.4},{v:8},{v:0}]},
+{c:[{v:55},{v:null},{v:25.4},{v:127.2},{v:21.2},{v:9},{v:0}]},
+{c:[{v:56},{v:null},{v:24.8},{v:123.8},{v:24.2},{v:10},{v:0}]},
+{c:[{v:57},{v:null},{v:22.8},{v:114.1},{v:18.4},{v:7},{v:0}]},
+{c:[{v:58},{v:null},{v:49.8},{v:248.8},{v:22.9},{v:19},{v:0}]},
+{c:[{v:59},{v:null},{v:26.8},{v:134.1},{v:22.4},{v:10},{v:0}]},
+{c:[{v:60},{v:null},{v:22.1},{v:110.3},{v:19.0},{v:7},{v:0}]},
+{c:[{v:61},{v:null},{v:27.3},{v:136.6},{v:22.0},{v:10},{v:0}]},
+{c:[{v:62},{v:null},{v:24.8},{v:123.8},{v:21.8},{v:9},{v:0}]},
+{c:[{v:63},{v:null},{v:22.0},{v:110.0},{v:19.1},{v:7},{v:0}]},
+{c:[{v:64},{v:null},{v:26.6},{v:132.8},{v:22.6},{v:10},{v:0}]},
+{c:[{v:65},{v:null},{v:22.9},{v:114.4},{v:18.4},{v:7},{v:0}]},
+{c:[{v:'R'},{v:null},{v:141.2},{v:null},{v:null},{v:null},{v:null},{v:null}]},
+{c:[{v:66},{v:4},{v:20.8},{v:103.8},{v:23.1},{v:8},{v:0}]},
+{c:[{v:67},{v:null},{v:19.6},{v:98.1},{v:24.5},{v:8},{v:0}]},
+{c:[{v:68},{v:null},{v:23.9},{v:119.4},{v:22.6},{v:9},{v:0}]},
+{c:[{v:69},{v:null},{v:19.1},{v:95.6},{v:22.0},{v:7},{v:0}]},
+{c:[{v:70},{v:null},{v:22.1},{v:110.6},{v:24.4},{v:9},{v:0}]},
+{c:[{v:71},{v:null},{v:23.4},{v:117.2},{v:25.6},{v:10},{v:0}]},
+{c:[{v:72},{v:null},{v:22.0},{v:110.0},{v:24.5},{v:9},{v:0}]},
+{c:[{v:73},{v:null},{v:22.7},{v:113.4},{v:23.8},{v:9},{v:0}]},
+{c:[{v:74},{v:null},{v:18.4},{v:92.2},{v:22.8},{v:7},{v:0}]},
+{c:[{v:75},{v:null},{v:22.2},{v:111.2},{v:24.3},{v:9},{v:0}]},
+{c:[{v:'R'},{v:null},{v:91.2},{v:null},{v:null},{v:null},{v:null},{v:null}]},
+{c:[{v:76},{v:5},{v:25.2},{v:126.2},{v:26.1},{v:11},{v:2}]},
+{c:[{v:77},{v:null},{v:28.0},{v:140.0},{v:27.9},{v:13},{v:2}]},
+{c:[{v:78},{v:null},{v:28.6},{v:142.8},{v:27.3},{v:13},{v:2}]},
+{c:[{v:79},{v:null},{v:28.2},{v:140.9},{v:25.5},{v:12},{v:2}]},
+{c:[{v:80},{v:null},{v:28.2},{v:141.2},{v:27.6},{v:13},{v:2}]},
+{c:[{v:81},{v:null},{v:28.0},{v:140.0},{v:27.9},{v:13},{v:2}]},
+{c:[{v:82},{v:null},{v:27.5},{v:137.5},{v:28.4},{v:13},{v:2}]},
+{c:[{v:83},{v:null},{v:30.2},{v:151.2},{v:27.8},{v:14},{v:2}]},
+{c:[{v:84},{v:null},{v:26.2},{v:130.9},{v:29.8},{v:13},{v:2}]},
+{c:[{v:85},{v:null},{v:25.7},{v:128.4},{v:30.4},{v:13},{v:2}]},
+{c:[{v:86},{v:null},{v:29.6},{v:148.1},{v:26.3},{v:13},{v:2}]},
+{c:[{v:87},{v:null},{v:25.8},{v:129.1},{v:30.2},{v:13},{v:2}]},
+{c:[{v:88},{v:null},{v:26.3},{v:131.6},{v:29.6},{v:13},{v:2}]},
+{c:[{v:89},{v:null},{v:28.8},{v:144.1},{v:31.2},{v:15},{v:2}]},
+{c:[{v:90},{v:null},{v:24.5},{v:122.5},{v:29.4},{v:12},{v:2}]},
+{c:[{v:'R'},{v:null},{v:89.5},{v:null},{v:null},{v:null},{v:null},{v:null}]},
+{c:[{v:91},{v:6},{v:20.4},{v:101.9},{v:20.6},{v:7},{v:0}]},
+{c:[{v:92},{v:null},{v:21.0},{v:105.0},{v:22.9},{v:8},{v:0}]},
+{c:[{v:93},{v:null},{v:24.4},{v:121.9},{v:24.6},{v:10},{v:0}]},
+{c:[{v:94},{v:null},{v:19.6},{v:98.1},{v:21.4},{v:7},{v:0}]},
+{c:[{v:95},{v:null},{v:24.4},{v:122.2},{v:24.6},{v:10},{v:0}]},
+{c:[{v:96},{v:null},{v:23.1},{v:115.6},{v:23.4},{v:9},{v:0}]},
+{c:[{v:97},{v:null},{v:20.1},{v:100.3},{v:20.9},{v:7},{v:0}]},
+{c:[{v:98},{v:null},{v:23.9},{v:119.4},{v:22.6},{v:9},{v:0}]},
+{c:[{v:99},{v:null},{v:23.6},{v:117.8},{v:22.9},{v:9},{v:0}]},
+{c:[{v:100},{v:null},{v:23.2},{v:115.9},{v:23.3},{v:9},{v:0}]},
+{c:[{v:'R'},{v:null},{v:48.8},{v:null},{v:null},{v:null},{v:null},{v:null}]},
+{c:[{v:101},{v:7},{v:28.3},{v:141.6},{v:21.2},{v:10},{v:0}]},
+{c:[{v:102},{v:null},{v:25.4},{v:127.2},{v:18.9},{v:8},{v:0}]},
+{c:[{v:103},{v:null},{v:26.1},{v:130.6},{v:23.0},{v:10},{v:0}]},
+{c:[{v:104},{v:null},{v:23.1},{v:115.3},{v:20.8},{v:8},{v:0}]},
+{c:[{v:105},{v:null},{v:26.7},{v:133.4},{v:20.2},{v:9},{v:0}]},
+{c:[{v:106},{v:null},{v:29.2},{v:146.2},{v:28.7},{v:14},{v:2}]},
+{c:[{v:107},{v:null},{v:28.4},{v:141.9},{v:27.5},{v:13},{v:2}]},
+{c:[{v:108},{v:null},{v:23.6},{v:117.8},{v:28.0},{v:11},{v:2}]},
+{c:[{v:109},{v:null},{v:32.6},{v:162.8},{v:22.1},{v:12},{v:2}]},
+{c:[{v:110},{v:null},{v:37.6},{v:187.8},{v:22.4},{v:14},{v:2}]}]};
+var summaryChartData_ =
+{cols:[
+{id:'stroke',type:'string'},
+{id:'length',label:'time',type:'number'}
+],
+rows:[
+{c:[{v:'Freestyle'}, {v:2027.9800109863, f:'33:47'}]},
+{c:[{v:'Backstroke'}, {v:0, f:'0:00'}]},
+{c:[{v:'Breaststroke'}, {v:695.80600357056, f:'11:35'}]},
+{c:[{v:'Butterfly'}, {v:0, f:'0:00'}]},
+{c:[{v:'Mixed'}, {v:0, f:'0:00'}]},
+{c:[{v:'Unknown'}, {v:0, f:'0:00'}]},
+{c:[{v:'Drill'}, {v:0, f:'0:00'}]},
+{c:[{v:'Rest'}, {v:505.47800445557, f:'8:25'}]}
+]};
+
+</script>
+<script type="text/javascript" src="scripts/viewer2.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-44807897-1', 'swimmingwatchtools.com');
+  ga('send', 'pageview');
+
+</script>
+    </div>
+  </body>
+</html>
